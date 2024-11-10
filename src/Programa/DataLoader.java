@@ -17,17 +17,24 @@ public class DataLoader {
 
         // Ignorar los datos de los centros de distribución para llegar a la lista de clientes
         String line;
-        while ((line = reader.readLine()) != null && !line.startsWith("0,")) { 
-            // Estas líneas se ignoran, ya que representan centros de distribución
-        }
-
-        // Lee los datos de los clientes
         while ((line = reader.readLine()) != null) {
+            // Ignora las líneas que tienen dos o más comas
+            if (line.chars().filter(ch -> ch == ',').count() >= 2) {
+                continue;
+            }
             String[] parts = line.split(",");
             int id = Integer.parseInt(parts[0]);
             int produccionAnual = Integer.parseInt(parts[1]);
             clientes.add(new Cliente(id, produccionAnual));
         }
+
+        // Lee los datos de los clientes
+//        while ((line = reader.readLine()) != null) {
+//            String[] parts = line.split(",");
+//            int id = Integer.parseInt(parts[0]);
+//            int produccionAnual = Integer.parseInt(parts[1]);
+//            clientes.add(new Cliente(id, produccionAnual));
+//        }
         reader.close();
         return clientes;
     }
@@ -44,7 +51,7 @@ public class DataLoader {
         for (int i = 0; i < 8; i++) { // Asumiendo siempre 8 centros de distribución
             String line = reader.readLine();
             String[] parts = line.split(",");
-            int id = Integer.parseInt(parts[0]);
+            int id = Integer.parseInt(parts[0]) + 50;
             int costoTransportePuerto = Integer.parseInt(parts[1]);
             int costoFijo = Integer.parseInt(parts[2]);
             centros.add(new CentroDistribucion(id, costoTransportePuerto, costoFijo));

@@ -20,6 +20,16 @@ public class OptimizacionCentros {
         this.centros = centros;
         this.rutas = rutas;
         inicializarDistancias();
+        for (int f = 0; f < distancias.length; f++) {
+            System.out.print(f + ": ");
+            for (int c = 0; c < distancias[f].length; c++) {
+                System.out.print(distancias[f][c] + " ");
+            }
+            System.out.println();
+        }
+        for (CentroDistribucion c : this.centros) {
+            System.out.println(c.getId() + " " + c.getCostoTransportePuerto() + " " + c.getCostoFijo());
+        }
         floydWarshall();
     }
 
@@ -100,19 +110,22 @@ public class OptimizacionCentros {
             costoTotal += costoMinimoCliente;
             asignacionTemporal.put(cliente, mejorCentro); // Guarda la mejor asignación para este cliente
         }
-        return costoTotal;
+        int verificacion = (costoTotal < 0) ? Integer.MAX_VALUE : costoTotal;
+        //int verificacion = costoTotal;
+        return verificacion;
     }
 
     public void mostrarResultados() {
         System.out.println("Asignación de clientes a centros de distribución:");
         for (Map.Entry<Cliente, CentroDistribucion> entry : asignacionClientes.entrySet()) {
-            System.out.println("Cliente " + entry.getKey().getId() + " asignado al centro " + entry.getValue().getId());
+            System.out.println("Cliente " + entry.getKey().getId() + " asignado al centro " + (entry.getValue().getId() - 50));
         }
         System.out.print("Centros de distribución construidos: ");
         for (CentroDistribucion centro : mejoresCentrosSeleccionados) {
-            System.out.print(centro.getId() + " ");
+            System.out.print(centro.getId() - 50 + " ");
         }
         System.out.println("\nCosto total optimizado: " + mejorCostoTotal);
+
     }
 }
 
