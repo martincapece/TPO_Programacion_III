@@ -20,16 +20,6 @@ public class OptimizacionCentros {
         this.centros = centros;
         this.rutas = rutas;
         inicializarDistancias();
-        for (int f = 0; f < distancias.length; f++) {
-            System.out.print(f + ": ");
-            for (int c = 0; c < distancias[f].length; c++) {
-                System.out.print(distancias[f][c] + " ");
-            }
-            System.out.println();
-        }
-        for (CentroDistribucion c : this.centros) {
-            System.out.println(c.getId() + " " + c.getCostoTransportePuerto() + " " + c.getCostoFijo());
-        }
         floydWarshall();
     }
 
